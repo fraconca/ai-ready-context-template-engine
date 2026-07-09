@@ -22,12 +22,15 @@ safe_read() {
     local default_val="$3"
     local user_val=""
 
+    # Print prompt explicitly to standard output
+    printf "%b" "$prompt"
+
     if [ -t 0 ]; then
         # stdin is a TTY
-        read -p "$prompt" user_val
+        read user_val
     else
         # Try to read from /dev/tty, fallback to empty if device is not configured
-        if read -p "$prompt" user_val < /dev/tty 2>/dev/null; then
+        if read user_val < /dev/tty 2>/dev/null; then
             :
         else
             user_val=""
