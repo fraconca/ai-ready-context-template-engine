@@ -60,11 +60,12 @@ fi
 
 # 2. Choose Tech Stack
 echo -e "\n${BLUE}Select your primary technology stack:${RESET}"
-echo "  1) Standard / Generic (General Purpose)"
+echo "  1) Standard / Static Site"
 echo "  2) TypeScript / Next.js"
 echo "  3) Python (AI/Agent/Data Science)"
 echo "  4) Go (Golang)"
-safe_read "Selection (1-4) [default: 1]: " STACK_CHOICE "1"
+echo "  5) Node.js (Backend / Express / Fastify)"
+safe_read "Selection (1-5) [default: 1]: " STACK_CHOICE "1"
 
 # 3. Ask for Git Initialization
 safe_read "🗂️  Initialize Git repository inside target folder? (y/n) [default: y]: " GIT_CHOICE "y"
@@ -99,6 +100,16 @@ case "$STACK_CHOICE" in
         BUILD_PROC="### Dependency Download\n\`\`\`bash\ngo mod download\n\`\`\`\n\n### Running Application\n\`\`\`bash\ngo run main.go\n\`\`\`\n\n### Building Binary\n\`\`\`bash\ngo build -o bin/server main.go\n\`\`\`"
         TEST_PROC="- Unit Testing: Go testing framework (\`go test ./...\`)\n- Benchmark: \`go test -bench=.\`"
         GITIGNORE_EXTRA="bin/\n*.exe\n*.exe~\n*.dll\n*.so\n*.dylib\n.env"
+        ;;
+    5)
+        STACK_NAME="Node.js (Backend / Express / Fastify)"
+        LANG_TECH="- Framework/Language: JavaScript / Node.js, Express or Fastify"
+        DB_TECH="- Database/State: PostgreSQL / MongoDB / Prisma / Mongoose"
+        UI_TECH="- Styling/UI: Headless JSON API"
+        PREREQS="- Node.js (v18+ or v20+)\n- npm, yarn, or pnpm"
+        BUILD_PROC="### Dependency Installation\n\`\`\`bash\nnpm install\n\`\`\`\n\n### Running Application\n\`\`\`bash\nnpm start\n\`\`\`\n\n### Running Dev Server\n\`\`\`bash\nnpm run dev\n\`\`\`"
+        TEST_PROC="- Testing framework: Jest, Mocha, or Vitest (\`npm test\`)\n- Linting/Formatting: ESLint & Prettier"
+        GITIGNORE_EXTRA="node_modules/\n.env\n.env.local\ndist/\nbuild/\n.npm"
         ;;
     *)
         STACK_NAME="Standard / Generic"
@@ -355,6 +366,46 @@ module ${PROJECT_NAME:-ai-go-project}
 go 1.20
 EOF
         echo -e "${GREEN}✓ Generated Go skeleton (go.mod, main.go)${RESET}"
+        ;;
+    5)
+        # Node.js package.json boilerplate
+        cat << EOF > "$TARGET_DIR/package.json"
+{
+  "name": "${PROJECT_NAME:-ai-node-project}",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js"
+  },
+  "dependencies": {
+    "express": "^4.19.0",
+    "dotenv": "^16.4.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}
+EOF
+        # Node.js src/index.js boilerplate
+        cat << EOF > "$TARGET_DIR/src/index.js"
+require('dotenv').config();
+const express = require('express');
+
+const app = express();
+const port = process.env.PORT || 3000;
+
+app.use(express.json());
+
+app.get('/', (req, res) => {
+  res.json({ status: 'success', message: 'AI-Ready Node.js Server is running!' });
+});
+
+app.listen(port, () => {
+  console.log(\`Server is running on port \${port}\`);
+});
+EOF
+        echo -e "${GREEN}✓ Generated Node.js skeleton (package.json, src/index.js)${RESET}"
         ;;
 esac
 
