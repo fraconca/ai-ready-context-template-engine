@@ -78,7 +78,8 @@ echo "  6) PHP (Laravel / Vanilla)"
 echo "  7) Java (Spring Boot / Maven)"
 echo "  8) .NET (C# / Web API)"
 echo "  9) Ruby (Rails / Sinatra)"
-safe_read "Selection (1-9) [default: 1]: " STACK_CHOICE "1"
+echo "  10) Liquid (Shopify Storefront)"
+safe_read "Selection (1-10) [default: 1]: " STACK_CHOICE "1"
 
 # 3. Ask for Git Initialization
 safe_read "🗂️  Initialize Git repository inside target folder? (y/n) [default: y]: " GIT_CHOICE "y"
@@ -163,6 +164,16 @@ case "$STACK_CHOICE" in
         BUILD_PROC="### Dependency Installation\n\`\`\`bash\nbundle install\n\`\`\`\n\n### Running Dev Server\n\`\`\`bash\nbundle exec rails server  # Or: ruby app.rb\n\`\`\`"
         TEST_PROC="- Testing framework: RSpec or Minitest (\`bundle exec rspec\` or \`bundle exec rake test\`)\n- Code Quality: RuboCop"
         GITIGNORE_EXTRA=".bundle/\nvendor/bundle/\nlog/\ntmp/\n.env\n.env.local"
+        ;;
+    10)
+        STACK_NAME="Shopify Storefront (Theme / Liquid)"
+        LANG_TECH="- Framework/Language: Liquid, Shopify Theme Architecture"
+        DB_TECH="- Database/State: Shopify Online Store Database"
+        UI_TECH="- Styling/UI: Tailwind CSS / Vanilla CSS / Liquid"
+        PREREQS="- Node.js (v18+)\n- Shopify CLI\n- Git"
+        BUILD_PROC="### Running Theme Locally\n\`\`\`bash\nshopify theme dev\n\`\`\`\n\n### Pushing Theme Changes\n\`\`\`bash\nshopify theme push\n\`\`\`"
+        TEST_PROC="- Testing/Linting: Shopify Theme Check (\`theme-check .\`)"
+        GITIGNORE_EXTRA="config/settings_data.json\n.shopify/\nnode_modules/"
         ;;
     *)
         STACK_NAME="Standard / Generic"
@@ -634,6 +645,25 @@ get '/' do
 end
 EOF
         echo -e "${GREEN}✓ Generated Ruby skeleton (Gemfile, src/app.rb)${RESET}"
+        ;;
+    10)
+        echo -e "${BLUE}⏳ Cloning Shopify Skeleton Theme...${RESET}"
+        if git clone git@github.com:Shopify/skeleton-theme.git "$TARGET_DIR/shopify-temp" 2>/dev/null; then
+            # Move all contents to the target directory safely
+            find "$TARGET_DIR/shopify-temp" -mindepth 1 -maxdepth 1 -exec mv {} "$TARGET_DIR/" \;
+            rm -rf "$TARGET_DIR/shopify-temp"
+            echo -e "${GREEN}✓ Successfully cloned Shopify Skeleton Theme!${RESET}"
+        else
+            echo -e "${YELLOW}⚠️  Failed to clone Shopify Skeleton Theme via SSH. Trying HTTPS...${RESET}"
+            if git clone https://github.com/Shopify/skeleton-theme.git "$TARGET_DIR/shopify-temp" 2>/dev/null; then
+                find "$TARGET_DIR/shopify-temp" -mindepth 1 -maxdepth 1 -exec mv {} "$TARGET_DIR/" \;
+                rm -rf "$TARGET_DIR/shopify-temp"
+                echo -e "${GREEN}✓ Successfully cloned Shopify Skeleton Theme via HTTPS!${RESET}"
+            else
+                echo -e "${RED}❌ Failed to clone theme. Please ensure Git is installed and you have internet access.${RESET}"
+                rm -rf "$TARGET_DIR/shopify-temp"
+            fi
+        fi
         ;;
 esac
 
