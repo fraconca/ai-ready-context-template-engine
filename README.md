@@ -39,38 +39,30 @@ By enforcing an English-first, LLM-indexed folder structure (`llms.txt` + `.ai/`
 
 ## 🚀 How to Run and Initialize Your Workspace
 
-You can initialize this structure in your local environment using one of the easy methods below.
+You can initialize this structure in your local environment using the remote one-liner below:
 
-### 🌐 Method 1: Remote One-Liner (No Download Required)
-Open your terminal in any empty directory where you want to create your project and run:
 ```bash
 curl -sSL https://raw.githubusercontent.com/fraconca/ai-ready-context-template-engine/main/setup.sh | bash
 ```
 
 ---
 
-### 💻 Method 2: Local Execution (If you cloned or downloaded this repository)
-If you have cloned this repository or downloaded the ZIP file, navigate to the folder in your terminal and choose one of the options below:
+## 📸 Visual Step-by-Step Walkthrough
 
-#### ⚡ Option A: Direct Bash Run (Easiest)
-Run the script using the `bash` interpreter (no need to change file permissions):
-```bash
-bash setup.sh
-```
+#### 1️⃣ Step 1: Running the generator
+![Step 1: Running the generator](./steps/step-01.png)
 
-#### 🛠️ Option B: Standard Executable Run
-Grant execution permissions and run the script:
-```bash
-chmod +x setup.sh
-./setup.sh
-```
+#### 2️⃣ Step 2: Selecting your tech stack
+![Step 2: Selecting your tech stack](./steps/step-02.png)
 
----
+#### 3️⃣ Step 3: Git repository initialization option
+![Step 3: Git repository initialization option](./steps/step-03.png)
 
-### ⚙️ What the Script Will Ask You:
-1. **📁 Folder Name**: Press **Enter** to install directly in the current directory, or type a **name** to create a new folder for your project.
-2. **🔌 Tech Stack**: Choose your stack (TypeScript/Next.js, Python/AI, Go, or Generic) to automatically fill `.ai/system-prompt.md` and `.ai/development.md` with targeted developer guidelines.
-3. **🗂️ Git Initialization**: Choose if you want to initialize a git repository and generate a stack-specific `.gitignore` file.
+#### 4️⃣ Step 4: Workspace generation success
+![Step 4: Workspace generation success](./steps/step-04.png)
+
+#### 5️⃣ Step 5: Generated directory structure
+![Step 5: Generated directory structure](./steps/step-05-final-directory.png)
 
 ---
 
