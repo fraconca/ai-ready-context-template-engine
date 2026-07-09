@@ -72,8 +72,6 @@ When sharing this folder or opening it in an AI-driven environment for the first
 
 > 💡 "Please read the `llms.txt` file located in the root directory to understand the project map, and strictly follow the operational guidelines inside the `.ai/` directory. Maintain the `.ai/changelog.md` file whenever a feature is completed or when goals shift."
 
----
-
 ## 🛠️ Customization Workflow
 
 Before starting your development cycle, update these files with your specific project details:
@@ -83,6 +81,24 @@ Before starting your development cycle, update these files with your specific pr
 
 > [!IMPORTANT]
 > **Clean Up & Modify:** The script generates basic boilerplate skeleton files in the `src/` folder (such as `main.py`, `main.go`, or Next.js route files) to help verify your setup. Feel free to modify, rewrite, or delete any of these initial code files to fit your project's specific architecture.
+
+---
+
+## ❓ FAQ (Frequently Asked Questions)
+
+#### Why use the `llms.txt` standard instead of other custom formats (like `AGENTS.md`)?
+`llms.txt` is an emerging, industry-wide standard (proposed by Answer.ai) for serving clean, LLM-crawlable context at root endpoints. Automated tools, web crawlers, and AI agents naturally check for `/llms.txt` and `/.well-known/llms-full.txt`. By aligning with this format, your repository becomes universally readable by any agent out of the box, without relying on proprietary structures.
+
+#### What is the difference between using this vs. `.cursorrules`, `claude.md`, or one giant prompt?
+* **No Redundancy:** We consolidate persona and stack rules under `.ai/system-prompt.md` (replacing the need for a separate `agent.md` or multiple fragmented prompt files) to keep context concise.
+* **Universal Compatibility:** IDE-specific files like `.cursorrules` or `claude.md` only work inside their respective tools. This structure works across **any** LLM platform, custom GPT, or autonomous agent via the `llms.txt` index.
+* **Higher Context Attention:** Giant prompts suffer from "lost in the middle" attention degradation and bloat token costs. Splitting context into single-responsibility markdown files ensures agents only digest what is relevant to the active task.
+
+#### Don't modern autonomous agents already manage context automatically?
+While agents are getting better at codebase retrieval (RAG), they still lack business intent, product vision, and engineering boundaries. They cannot guess *why* a feature is out of scope or *how* you prefer to structure testing. This template provides **deterministic guidance** that overrides RAG guessing, drastically reducing hallucinations.
+
+#### Does this scale to large codebases (e.g., monorepos or dozens of libraries)?
+Yes! For monorepos or multi-project structures, you can host a main `llms.txt` at the root that maps to subfolders, and each sub-project can have its own `.ai/` context folder. This maintains a clean, modular hierarchy that agents can traverse on-demand without overloading their context window.
 
 ---
 
