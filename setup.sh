@@ -18,10 +18,11 @@ echo '/_/  |_/___/  /_/ |_| \___/\__,_/\__,_/\__, /   '
 echo '                                      /____/    '
 echo -e "${RESET}"
 
+echo ""
 echo -e "${CYAN}====================================================${RESET}"
 echo -e "${GREEN}        AI-Context Workspace Template Engine        ${RESET}"
 echo -e "${CYAN}====================================================${RESET}"
-echo -e "This script initializes a standardized, AI-ready project structure."
+echo -e "Initialize a standardized AI-ready project template."
 echo ""
 
 # --- Safe Input Function for Interactive/Piped Environments ---
