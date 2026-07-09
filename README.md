@@ -37,6 +37,23 @@ By enforcing an English-first, LLM-indexed folder structure (`llms.txt` + `.ai/`
 
 ---
 
+## 🔌 Supported Technology Stacks
+
+The generator script comes pre-configured with optimized context files (`system-prompt.md`, `development.md`, `.gitignore`) and boilerplate files for the following stacks:
+
+1. **Standard / Static HTML, CSS, JS** — General-purpose, static site skeleton.
+2. **TypeScript / Next.js** — Next.js (App Router), React, Tailwind CSS, TypeScript, and developer tools.
+3. **Python (AI/Agent/Data Science)** — FastAPI, Uvicorn, LangChain, OpenAI, Dotenv, and `.venv` templates.
+4. **Go (Golang)** — Basic HTTP server, routing, and `go.mod` module setup.
+5. **Node.js (Backend / Express / Fastify)** — Express.js server, dotenv setup, and Nodemon for fast hot-reload.
+6. **PHP (Laravel / Vanilla)** — Composer project file, public index router, and PSR-4 App namespaces.
+7. **Java (Spring Boot / Maven)** — Maven standard structure, Spring Web, and parent Pom configurations.
+8. **.NET (C# / Web API)** — .NET Core 8.0 Minimal APIs, Web SDK, and C# compilation configurations.
+9. **Ruby (Rails / Sinatra)** — Sinatra Web API, Gemfile, and Bundler configuration.
+10. **Shopify Storefront (Theme / Liquid)** — Shopify Theme structure with automated Shopify Skeleton Theme cloning.
+
+---
+
 ## 🚀 How to Run and Initialize Your Workspace
 
 You can initialize this structure in your local environment using the remote one-liner below:
