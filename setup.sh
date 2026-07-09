@@ -376,4 +376,8 @@ if [[ "$GIT_CHOICE" =~ ^[Yy]$ ]]; then
 fi
 
 echo -e "\n${GREEN}✨ Success! AI-Ready project workspace generated successfully. ✨${RESET}"
-echo -e "Prompt your AI assistant with the initial instruction found in README.md to begin."
+echo -e "\n${YELLOW}💡 Next Steps:${RESET}"
+echo -e "  1. Customize your AI configuration files inside the ${CYAN}.ai/${RESET} folder (objectives.md, system-prompt.md, development.md)."
+echo -e "  2. Modify, replace, or delete the temporary boilerplate files in ${CYAN}src/${RESET} to fit your actual architecture."
+echo -e "  3. Prompt your AI assistant using the initial instruction found in the generated ${CYAN}README.md${RESET} to begin!"
+echo ""

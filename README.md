@@ -49,19 +49,19 @@ curl -sSL https://raw.githubusercontent.com/fraconca/ai-ready-context-template-e
 
 ## 📸 Visual Step-by-Step Walkthrough
 
-#### 1️⃣ Step 1: Running the generator
+#### Step 1: Running the generator
 ![Step 1: Running the generator](./steps/step-01.png)
 
-#### 2️⃣ Step 2: Selecting your tech stack
+#### Step 2: Selecting your tech stack
 ![Step 2: Selecting your tech stack](./steps/step-02.png)
 
-#### 3️⃣ Step 3: Git repository initialization option
+#### Step 3: Git repository initialization option
 ![Step 3: Git repository initialization option](./steps/step-03.png)
 
-#### 4️⃣ Step 4: Workspace generation success
+#### Step 4: Workspace generation success
 ![Step 4: Workspace generation success](./steps/step-04.png)
 
-#### 5️⃣ Step 5: Generated directory structure
+#### Step 5: Generated directory structure
 ![Step 5: Generated directory structure](./steps/step-05-final-directory.png)
 
 ---
