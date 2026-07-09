@@ -69,7 +69,7 @@ fi
 
 # 2. Choose Tech Stack
 echo -e "\n${BLUE}Select your primary technology stack:${RESET}"
-echo "  1) Standard / Static Site"
+echo "  1) Standard / Static HTML, CSS, JS"
 echo "  2) TypeScript / Next.js"
 echo "  3) Python (AI/Agent/Data Science)"
 echo "  4) Go (Golang)"
