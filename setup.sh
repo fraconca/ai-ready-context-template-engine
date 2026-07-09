@@ -67,7 +67,8 @@ echo "  4) Go (Golang)"
 echo "  5) Node.js (Backend / Express / Fastify)"
 echo "  6) PHP (Laravel / Vanilla)"
 echo "  7) Java (Spring Boot / Maven)"
-safe_read "Selection (1-7) [default: 1]: " STACK_CHOICE "1"
+echo "  8) .NET (C# / Web API)"
+safe_read "Selection (1-8) [default: 1]: " STACK_CHOICE "1"
 
 # 3. Ask for Git Initialization
 safe_read "🗂️  Initialize Git repository inside target folder? (y/n) [default: y]: " GIT_CHOICE "y"
@@ -132,6 +133,16 @@ case "$STACK_CHOICE" in
         BUILD_PROC="### Build Procedures\n\`\`\`bash\nmvn clean install\n\`\`\`\n\n### Running Application\n\`\`\`bash\nmvn spring-boot:run\n\`\`\`"
         TEST_PROC="- Testing framework: JUnit 5, Mockito (\`mvn test\`)\n- Code Quality: Checkstyle / SonarLint"
         GITIGNORE_EXTRA="target/\n.mvn/\nmvnw\nmvnw.cmd\n.project\n.classpath\n.settings/\n.idea/\n*.iml\n.env"
+        ;;
+    8)
+        STACK_NAME=".NET (C# / Web API)"
+        LANG_TECH="- Framework/Language: C# / .NET (v8.0), ASP.NET Core Web API"
+        DB_TECH="- Database/State: SQL Server / PostgreSQL / SQLite / Entity Framework Core"
+        UI_TECH="- Styling/UI: Headless JSON API"
+        PREREQS="- .NET SDK 8.0+"
+        BUILD_PROC="### Build Procedures\n\`\`\`bash\ndotnet build\n\`\`\`\n\n### Running Application\n\`\`\`bash\ndotnet run --project src/\n\`\`\`"
+        TEST_PROC="- Testing framework: xUnit or NUnit, Moq (\`dotnet test\`)\n- Code Quality: Roslyn Analyzers / EditorConfig"
+        GITIGNORE_EXTRA="bin/\nobj/\n*.user\n*.suo\n*.userosscache\n*.sln.docstates\n.vs/\n.env"
         ;;
     *)
         STACK_NAME="Standard / Generic"
@@ -552,6 +563,30 @@ public class StatusController {
 }
 EOF
         echo -e "${GREEN}✓ Generated Java skeleton (pom.xml, Application.java, StatusController.java)${RESET}"
+        ;;
+    8)
+        # .NET Project.csproj boilerplate
+        cat << EOF > "$TARGET_DIR/src/Project.csproj"
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+</Project>
+EOF
+        # .NET Program.cs Minimal API boilerplate
+        cat << EOF > "$TARGET_DIR/src/Program.cs"
+var builder = WebApplication.CreateBuilder(args);
+var app = builder.Build();
+
+app.MapGet("/", () => new { status = "success", message = "AI-Ready .NET Core Server is running!" });
+
+app.Run();
+EOF
+        echo -e "${GREEN}✓ Generated .NET skeleton (Project.csproj, Program.cs)${RESET}"
         ;;
 esac
 
