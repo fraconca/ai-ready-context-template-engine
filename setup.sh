@@ -599,6 +599,33 @@ app.Run();
 EOF
         echo -e "${GREEN}✓ Generated .NET skeleton (Project.csproj, Program.cs)${RESET}"
         ;;
+    9)
+        # Ruby Gemfile boilerplate
+        cat << EOF > "$TARGET_DIR/Gemfile"
+source 'https://rubygems.org'
+
+ruby '>= 3.0.0'
+
+gem 'sinatra'
+gem 'puma'
+gem 'dotenv'
+EOF
+        # Ruby src/app.rb server boilerplate
+        cat << EOF > "$TARGET_DIR/src/app.rb"
+require 'sinatra'
+require 'dotenv/load'
+require 'json'
+
+set :port, ENV['PORT'] || 4567
+set :bind, '0.0.0.0'
+
+get '/' do
+  content_type :json
+  { status: 'success', message: 'AI-Ready Ruby Server is running!' }.to_json
+end
+EOF
+        echo -e "${GREEN}✓ Generated Ruby skeleton (Gemfile, src/app.rb)${RESET}"
+        ;;
 esac
 
 # Git Initialization
