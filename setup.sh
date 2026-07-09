@@ -9,8 +9,17 @@ RED='\033[0;31m'
 NC='\033[0;30m' # No Color
 RESET='\033[0m'
 
+echo -e "${GREEN}"
+echo '    ___    ____   ____                 __      '
+echo '   /   |  /  _/  / __ \ ___  ____ _ __/ /_  __ '
+echo '  / /| |  / /   / /_/ // _ \/ __ `/ _  / / / / '
+echo ' / ___ |_/ /   / _, _//  __/ /_/ / /_/ / /_/ /  '
+echo '/_/  |_/___/  /_/ |_| \___/\__,_/\__,_/\__, /   '
+echo '                                      /____/    '
+echo -e "${RESET}"
+
 echo -e "${CYAN}====================================================${RESET}"
-echo -e "${GREEN}    🤖 AI-Context Workspace Template Engine 🤖    ${RESET}"
+echo -e "${GREEN}         AI-Context Workspace Template Engine        ${RESET}"
 echo -e "${CYAN}====================================================${RESET}"
 echo -e "This script initializes a standardized, AI-ready project structure."
 echo ""
