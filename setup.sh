@@ -65,7 +65,8 @@ echo "  2) TypeScript / Next.js"
 echo "  3) Python (AI/Agent/Data Science)"
 echo "  4) Go (Golang)"
 echo "  5) Node.js (Backend / Express / Fastify)"
-safe_read "Selection (1-5) [default: 1]: " STACK_CHOICE "1"
+echo "  6) PHP (Laravel / Vanilla)"
+safe_read "Selection (1-6) [default: 1]: " STACK_CHOICE "1"
 
 # 3. Ask for Git Initialization
 safe_read "🗂️  Initialize Git repository inside target folder? (y/n) [default: y]: " GIT_CHOICE "y"
@@ -110,6 +111,16 @@ case "$STACK_CHOICE" in
         BUILD_PROC="### Dependency Installation\n\`\`\`bash\nnpm install\n\`\`\`\n\n### Running Application\n\`\`\`bash\nnpm start\n\`\`\`\n\n### Running Dev Server\n\`\`\`bash\nnpm run dev\n\`\`\`"
         TEST_PROC="- Testing framework: Jest, Mocha, or Vitest (\`npm test\`)\n- Linting/Formatting: ESLint & Prettier"
         GITIGNORE_EXTRA="node_modules/\n.env\n.env.local\ndist/\nbuild/\n.npm"
+        ;;
+    6)
+        STACK_NAME="PHP (Laravel / Vanilla)"
+        LANG_TECH="- Framework/Language: PHP (v8.1+), Laravel or Vanilla PHP"
+        DB_TECH="- Database/State: MySQL / PostgreSQL / SQLite / Eloquent ORM"
+        UI_TECH="- Styling/UI: Blade Templates / Tailwind CSS / Livewire"
+        PREREQS="- PHP 8.1+\n- Composer"
+        BUILD_PROC="### Dependency Installation\n\`\`\`bash\ncomposer install\n\`\`\`\n\n### Running Dev Server\n\`\`\`bash\nphp -S localhost:8000 -t public/  # Or: php artisan serve\n\`\`\`"
+        TEST_PROC="- Testing framework: PHPUnit or Pest (\`vendor/bin/phpunit\` or \`vendor/bin/pest\`)\n- Code Quality: PHPStan or Laravel Pint"
+        GITIGNORE_EXTRA="vendor/\n.env\n.env.backup\ncomposer.lock"
         ;;
     *)
         STACK_NAME="Standard / Generic"
@@ -406,6 +417,51 @@ app.listen(port, () => {
 });
 EOF
         echo -e "${GREEN}✓ Generated Node.js skeleton (package.json, src/index.js)${RESET}"
+        ;;
+    6)
+        # PHP composer.json boilerplate
+        cat << EOF > "$TARGET_DIR/composer.json"
+{
+  "name": "${PROJECT_NAME:-ai-php-project}/project",
+  "description": "AI-Ready PHP project workspace skeleton",
+  "type": "project",
+  "require": {
+    "php": "^8.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\\\": "src/"
+    }
+  }
+}
+EOF
+        # PHP public/index.php entry point boilerplate
+        mkdir -p "$TARGET_DIR/public"
+        cat << EOF > "$TARGET_DIR/public/index.php"
+<?php
+
+header('Content-Type: application/json');
+
+echo json_encode([
+    'status' => 'success',
+    'message' => 'AI-Ready PHP Server is running!'
+]);
+EOF
+        # PHP src/Helper.php helper class boilerplate
+        cat << EOF > "$TARGET_DIR/src/Helper.php"
+<?php
+
+namespace App;
+
+class Helper
+{
+    public static function getStatus(): string
+    {
+        return 'active';
+    }
+}
+EOF
+        echo -e "${GREEN}✓ Generated PHP skeleton (composer.json, public/index.php, src/Helper.php)${RESET}"
         ;;
 esac
 
