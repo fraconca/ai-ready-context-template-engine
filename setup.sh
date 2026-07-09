@@ -68,7 +68,8 @@ echo "  5) Node.js (Backend / Express / Fastify)"
 echo "  6) PHP (Laravel / Vanilla)"
 echo "  7) Java (Spring Boot / Maven)"
 echo "  8) .NET (C# / Web API)"
-safe_read "Selection (1-8) [default: 1]: " STACK_CHOICE "1"
+echo "  9) Ruby (Rails / Sinatra)"
+safe_read "Selection (1-9) [default: 1]: " STACK_CHOICE "1"
 
 # 3. Ask for Git Initialization
 safe_read "🗂️  Initialize Git repository inside target folder? (y/n) [default: y]: " GIT_CHOICE "y"
@@ -143,6 +144,16 @@ case "$STACK_CHOICE" in
         BUILD_PROC="### Build Procedures\n\`\`\`bash\ndotnet build\n\`\`\`\n\n### Running Application\n\`\`\`bash\ndotnet run --project src/\n\`\`\`"
         TEST_PROC="- Testing framework: xUnit or NUnit, Moq (\`dotnet test\`)\n- Code Quality: Roslyn Analyzers / EditorConfig"
         GITIGNORE_EXTRA="bin/\nobj/\n*.user\n*.suo\n*.userosscache\n*.sln.docstates\n.vs/\n.env"
+        ;;
+    9)
+        STACK_NAME="Ruby (Rails / Sinatra)"
+        LANG_TECH="- Framework/Language: Ruby (v3.0+), Rails or Sinatra"
+        DB_TECH="- Database/State: PostgreSQL / SQLite / ActiveRecord"
+        UI_TECH="- Styling/UI: ERB Templates / Tailwind CSS / Hotwire (Turbo/Stimulus)"
+        PREREQS="- Ruby 3.0+\n- Bundler"
+        BUILD_PROC="### Dependency Installation\n\`\`\`bash\nbundle install\n\`\`\`\n\n### Running Dev Server\n\`\`\`bash\nbundle exec rails server  # Or: ruby app.rb\n\`\`\`"
+        TEST_PROC="- Testing framework: RSpec or Minitest (\`bundle exec rspec\` or \`bundle exec rake test\`)\n- Code Quality: RuboCop"
+        GITIGNORE_EXTRA=".bundle/\nvendor/bundle/\nlog/\ntmp/\n.env\n.env.local"
         ;;
     *)
         STACK_NAME="Standard / Generic"
