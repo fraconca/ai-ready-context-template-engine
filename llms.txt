@@ -1,0 +1,11 @@
+# Project Context & AI Index
+
+## Core Documentation
+- [Product Objectives](.ai/objectives.md): Mission, scope, and target audience.
+- [Architecture & Rules](.ai/system-prompt.md): Tech stack, coding standards, and constraints.
+- [Development Workflow](.ai/development.md): Build, run, and testing protocols.
+- [Project Ledger](.ai/changelog.md): Current status, version history, and next steps.
+
+## Repository Structure
+- `.ai/`: Centralized AI context directory.
+- `src/`: Main source code.

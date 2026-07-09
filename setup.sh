@@ -10,13 +10,39 @@ NC='\033[0;30m' # No Color
 RESET='\033[0m'
 
 echo -e "${CYAN}====================================================${RESET}"
-echo -e "${GREEN}    🤖 AI-Context Workspace Template Generator 🤖    ${RESET}"
+echo -e "${GREEN}    🤖 AI-Context Workspace Template Engine 🤖    ${RESET}"
 echo -e "${CYAN}====================================================${RESET}"
 echo -e "This script initializes a standardized, AI-ready project structure."
 echo ""
 
+# --- Safe Input Function for Interactive/Piped Environments ---
+safe_read() {
+    local prompt="$1"
+    local var_name="$2"
+    local default_val="$3"
+    local user_val=""
+
+    if [ -t 0 ]; then
+        # stdin is a TTY
+        read -p "$prompt" user_val
+    else
+        # Try to read from /dev/tty, fallback to empty if device is not configured
+        if read -p "$prompt" user_val < /dev/tty 2>/dev/null; then
+            :
+        else
+            user_val=""
+        fi
+    fi
+
+    if [ -z "$user_val" ]; then
+        eval "$var_name=\"$default_val\""
+    else
+        eval "$var_name=\"$user_val\""
+    fi
+}
+
 # 1. Ask for Project Name / Location
-read -p "📁 Enter project folder name (leave empty to initialize in current directory): " PROJECT_NAME < /dev/tty
+safe_read "📁 Enter project folder name (leave empty to initialize in current directory): " PROJECT_NAME ""
 
 TARGET_DIR="."
 if [ ! -z "$PROJECT_NAME" ]; then
@@ -35,7 +61,10 @@ echo "  1) Standard / Generic (General Purpose)"
 echo "  2) TypeScript / Next.js"
 echo "  3) Python (AI/Agent/Data Science)"
 echo "  4) Go (Golang)"
-read -p "Selection (1-4) [default: 1]: " STACK_CHOICE < /dev/tty
+safe_read "Selection (1-4) [default: 1]: " STACK_CHOICE "1"
+
+# 3. Ask for Git Initialization
+safe_read "🗂️  Initialize Git repository inside target folder? (y/n) [default: y]: " GIT_CHOICE "y"
 
 case "$STACK_CHOICE" in
     2)
@@ -80,19 +109,16 @@ case "$STACK_CHOICE" in
         ;;
 esac
 
-# 3. Ask for Git Initialization
-read -p "🗂️  Initialize Git repository inside target folder? (y/n) [default: y]: " GIT_CHOICE < /dev/tty
-GIT_CHOICE=${GIT_CHOICE:-y}
-
 echo -e "\n${BLUE}🚀 Generating workspace in '${TARGET_DIR}' using stack: ${YELLOW}${STACK_NAME}${RESET}..."
 
 # Create core structure
 mkdir -p "$TARGET_DIR/.ai"
 mkdir -p "$TARGET_DIR/.well-known"
+mkdir -p "$TARGET_DIR/src"
 
 # Write README.md
 cat << EOF > "$TARGET_DIR/README.md"
-# $PROJECT_NAME
+# ${PROJECT_NAME:-AI-Project}
 
 ## Overview
 Brief description of the project, its value proposition, and target audience.
@@ -211,6 +237,123 @@ Thumbs.db
 # Stack-specific ignores
 $GITIGNORE_EXTRA
 EOF
+
+# --- Generate Stack-Specific Boilerplate Source Files ---
+case "$STACK_CHOICE" in
+    2)
+        # Next.js Boilerplate package.json
+        cat << EOF > "$TARGET_DIR/package.json"
+{
+  "name": "${PROJECT_NAME:-ai-next-project}",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "next": "^14.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "@types/node": "^20.0.0",
+    "@types/react": "^18.2.0",
+    "tailwindcss": "^3.0.0"
+  }
+}
+EOF
+        # Basic layout.tsx
+        mkdir -p "$TARGET_DIR/src/app"
+        cat << EOF > "$TARGET_DIR/src/app/layout.tsx"
+import React from 'react';
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en">
+      <body>{children}</body>
+    </html>
+  );
+}
+EOF
+        # Basic page.tsx
+        cat << EOF > "$TARGET_DIR/src/app/page.tsx"
+import React from 'react';
+
+export default function Home() {
+  return (
+    <main style={{ padding: '2rem', fontFamily: 'sans-serif' }}>
+      <h1>AI-Ready Next.js Project</h1>
+      <p>Your AI Agent is ready to code. Prompt it to start building!</p>
+    </main>
+  );
+}
+EOF
+        echo -e "${GREEN}✓ Generated Next.js skeleton (package.json, layout.tsx, page.tsx)${RESET}"
+        ;;
+    3)
+        # Python requirements.txt
+        cat << EOF > "$TARGET_DIR/requirements.txt"
+fastapi>=0.100.0
+uvicorn>=0.22.0
+langchain>=0.0.200
+openai>=1.0.0
+python-dotenv>=1.0.0
+EOF
+        # Python main.py
+        cat << EOF > "$TARGET_DIR/src/main.py"
+import os
+from fastapi import FastAPI
+from dotenv import load_dotenv
+
+load_dotenv()
+
+app = FastAPI(title="AI-Ready Python Project")
+
+@app.get("/")
+def read_root():
+    return {"status": "success", "message": "AI-Ready Python Project is running!"}
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
+EOF
+        echo -e "${GREEN}✓ Generated Python skeleton (requirements.txt, main.py)${RESET}"
+        ;;
+    4)
+        # Go main.go
+        cat << EOF > "$TARGET_DIR/src/main.go"
+package main
+
+import (
+	"fmt"
+	"net/http"
+)
+
+func helloHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "AI-Ready Go Server is running!")
+}
+
+func main() {
+	http.HandleFunc("/", helloHandler)
+	fmt.Println("Server starting on port 8080...")
+	if err := http.ListenAndServe(":8080", nil); err != nil {
+		panic(err)
+	}
+}
+EOF
+        # Go go.mod
+        cat << EOF > "$TARGET_DIR/go.mod"
+module ${PROJECT_NAME:-ai-go-project}
+
+go 1.20
+EOF
+        echo -e "${GREEN}✓ Generated Go skeleton (go.mod, main.go)${RESET}"
+        ;;
+esac
 
 # Git Initialization
 if [[ "$GIT_CHOICE" =~ ^[Yy]$ ]]; then
