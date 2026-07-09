@@ -50,7 +50,7 @@ The generator script comes pre-configured with optimized context files (`system-
 7. **Java (Spring Boot / Maven)** — Maven standard structure, Spring Web, and parent Pom configurations.
 8. **.NET (C# / Web API)** — .NET Core 8.0 Minimal APIs, Web SDK, and C# compilation configurations.
 9. **Ruby (Rails / Sinatra)** — Sinatra Web API, Gemfile, and Bundler configuration.
-10. **Shopify Storefront (Theme / Liquid)** — Shopify Theme structure with automated Shopify Skeleton Theme cloning.
+10. **Liquid (Shopify Storefront)** — Shopify Theme structure with Skeleton Theme.
 
 ---
 
