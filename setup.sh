@@ -66,7 +66,8 @@ echo "  3) Python (AI/Agent/Data Science)"
 echo "  4) Go (Golang)"
 echo "  5) Node.js (Backend / Express / Fastify)"
 echo "  6) PHP (Laravel / Vanilla)"
-safe_read "Selection (1-6) [default: 1]: " STACK_CHOICE "1"
+echo "  7) Java (Spring Boot / Maven)"
+safe_read "Selection (1-7) [default: 1]: " STACK_CHOICE "1"
 
 # 3. Ask for Git Initialization
 safe_read "🗂️  Initialize Git repository inside target folder? (y/n) [default: y]: " GIT_CHOICE "y"
@@ -121,6 +122,16 @@ case "$STACK_CHOICE" in
         BUILD_PROC="### Dependency Installation\n\`\`\`bash\ncomposer install\n\`\`\`\n\n### Running Dev Server\n\`\`\`bash\nphp -S localhost:8000 -t public/  # Or: php artisan serve\n\`\`\`"
         TEST_PROC="- Testing framework: PHPUnit or Pest (\`vendor/bin/phpunit\` or \`vendor/bin/pest\`)\n- Code Quality: PHPStan or Laravel Pint"
         GITIGNORE_EXTRA="vendor/\n.env\n.env.backup\ncomposer.lock"
+        ;;
+    7)
+        STACK_NAME="Java (Spring Boot / Maven)"
+        LANG_TECH="- Framework/Language: Java (v17+), Spring Boot 3"
+        DB_TECH="- Database/State: PostgreSQL / MySQL / H2 / Spring Data JPA"
+        UI_TECH="- Styling/UI: Headless REST API"
+        PREREQS="- Java JDK 17+\n- Maven (mvn)"
+        BUILD_PROC="### Build Procedures\n\`\`\`bash\nmvn clean install\n\`\`\`\n\n### Running Application\n\`\`\`bash\nmvn spring-boot:run\n\`\`\`"
+        TEST_PROC="- Testing framework: JUnit 5, Mockito (\`mvn test\`)\n- Code Quality: Checkstyle / SonarLint"
+        GITIGNORE_EXTRA="target/\n.mvn/\nmvnw\nmvnw.cmd\n.project\n.classpath\n.settings/\n.idea/\n*.iml\n.env"
         ;;
     *)
         STACK_NAME="Standard / Generic"
@@ -462,6 +473,85 @@ class Helper
 }
 EOF
         echo -e "${GREEN}✓ Generated PHP skeleton (composer.json, public/index.php, src/Helper.php)${RESET}"
+        ;;
+    7)
+        # Java Maven pom.xml boilerplate
+        cat << EOF > "$TARGET_DIR/pom.xml"
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>3.2.0</version>
+    <relativePath/>
+  </parent>
+  <groupId>com.example</groupId>
+  <artifactId>${PROJECT_NAME:-ai-ready-project}</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>${PROJECT_NAME:-ai-ready-project}</name>
+  <description>AI-Ready Spring Boot project</description>
+  <properties>
+    <java.version>17</java.version>
+  </properties>
+  <dependencies>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </build>
+</project>
+EOF
+        # Java Application.java boilerplate
+        mkdir -p "$TARGET_DIR/src/main/java/com/example/project/controller"
+        cat << EOF > "$TARGET_DIR/src/main/java/com/example/project/Application.java"
+package com.example.project;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class Application {
+    public static void main(String[] args) {
+        SpringApplication.run(Application.class, args);
+    }
+}
+EOF
+        # Java StatusController.java boilerplate
+        cat << EOF > "$TARGET_DIR/src/main/java/com/example/project/controller/StatusController.java"
+package com.example.project.controller;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+import java.util.Map;
+import java.util.HashMap;
+
+@RestController
+public class StatusController {
+    @GetMapping("/")
+    public Map<String, String> getStatus() {
+        Map<String, String> status = new HashMap<>();
+        status.put("status", "success");
+        status.put("message", "AI-Ready Java Spring Boot Server is running!");
+        return status;
+    }
+}
+EOF
+        echo -e "${GREEN}✓ Generated Java skeleton (pom.xml, Application.java, StatusController.java)${RESET}"
         ;;
 esac
 
