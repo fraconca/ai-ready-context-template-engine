@@ -16,7 +16,7 @@ echo -e "This script initializes a standardized, AI-ready project structure."
 echo ""
 
 # 1. Ask for Project Name / Location
-read -p "📁 Enter project folder name (leave empty to initialize in current directory): " PROJECT_NAME
+read -p "📁 Enter project folder name (leave empty to initialize in current directory): " PROJECT_NAME < /dev/tty
 
 TARGET_DIR="."
 if [ ! -z "$PROJECT_NAME" ]; then
@@ -35,7 +35,7 @@ echo "  1) Standard / Generic (General Purpose)"
 echo "  2) TypeScript / Next.js"
 echo "  3) Python (AI/Agent/Data Science)"
 echo "  4) Go (Golang)"
-read -p "Selection (1-4) [default: 1]: " STACK_CHOICE
+read -p "Selection (1-4) [default: 1]: " STACK_CHOICE < /dev/tty
 
 case "$STACK_CHOICE" in
     2)
@@ -81,7 +81,7 @@ case "$STACK_CHOICE" in
 esac
 
 # 3. Ask for Git Initialization
-read -p "🗂️  Initialize Git repository inside target folder? (y/n) [default: y]: " GIT_CHOICE
+read -p "🗂️  Initialize Git repository inside target folder? (y/n) [default: y]: " GIT_CHOICE < /dev/tty
 GIT_CHOICE=${GIT_CHOICE:-y}
 
 echo -e "\n${BLUE}🚀 Generating workspace in '${TARGET_DIR}' using stack: ${YELLOW}${STACK_NAME}${RESET}..."
