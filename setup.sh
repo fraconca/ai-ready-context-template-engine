@@ -19,7 +19,7 @@ echo '                                      /____/    '
 echo -e "${RESET}"
 
 echo -e "${CYAN}====================================================${RESET}"
-echo -e "${GREEN}         AI-Context Workspace Template Engine        ${RESET}"
+echo -e "${GREEN}        AI-Context Workspace Template Engine        ${RESET}"
 echo -e "${CYAN}====================================================${RESET}"
 echo -e "This script initializes a standardized, AI-ready project structure."
 echo ""
@@ -649,16 +649,16 @@ EOF
     10)
         echo -e "${BLUE}⏳ Cloning Shopify Skeleton Theme...${RESET}"
         if git clone git@github.com:Shopify/skeleton-theme.git "$TARGET_DIR/shopify-temp" 2>/dev/null; then
-            # Move all contents to the target directory safely
-            find "$TARGET_DIR/shopify-temp" -mindepth 1 -maxdepth 1 -exec mv {} "$TARGET_DIR/" \;
+            # Move all contents to the src directory safely
+            find "$TARGET_DIR/shopify-temp" -mindepth 1 -maxdepth 1 -exec mv {} "$TARGET_DIR/src/" \;
             rm -rf "$TARGET_DIR/shopify-temp"
-            echo -e "${GREEN}✓ Successfully cloned Shopify Skeleton Theme!${RESET}"
+            echo -e "${GREEN}✓ Successfully cloned Shopify Skeleton Theme into /src!${RESET}"
         else
             echo -e "${YELLOW}⚠️  Failed to clone Shopify Skeleton Theme via SSH. Trying HTTPS...${RESET}"
             if git clone https://github.com/Shopify/skeleton-theme.git "$TARGET_DIR/shopify-temp" 2>/dev/null; then
-                find "$TARGET_DIR/shopify-temp" -mindepth 1 -maxdepth 1 -exec mv {} "$TARGET_DIR/" \;
+                find "$TARGET_DIR/shopify-temp" -mindepth 1 -maxdepth 1 -exec mv {} "$TARGET_DIR/src/" \;
                 rm -rf "$TARGET_DIR/shopify-temp"
-                echo -e "${GREEN}✓ Successfully cloned Shopify Skeleton Theme via HTTPS!${RESET}"
+                echo -e "${GREEN}✓ Successfully cloned Shopify Skeleton Theme via HTTPS into /src!${RESET}"
             else
                 echo -e "${RED}❌ Failed to clone theme. Please ensure Git is installed and you have internet access.${RESET}"
                 rm -rf "$TARGET_DIR/shopify-temp"
