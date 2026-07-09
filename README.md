@@ -89,6 +89,9 @@ Before starting your development cycle, update these files with your specific pr
 2. **`.ai/objectives.md`**: Outline your business logic, app features, and scope limits.
 3. **`.ai/changelog.md`**: Set your initial task under `### Immediate Next Steps`.
 
+> [!IMPORTANT]
+> **Clean Up & Modify:** The script generates basic boilerplate skeleton files in the `src/` folder (such as `main.py`, `main.go`, or Next.js route files) to help verify your setup. Feel free to modify, rewrite, or delete any of these initial code files to fit your project's specific architecture.
+
 ---
 
 ## 📄 License
