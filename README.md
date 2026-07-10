@@ -62,6 +62,9 @@ You can initialize this structure in your local environment using the remote one
 curl -sSL https://raw.githubusercontent.com/fraconca/ai-ready-context-template-engine/main/setup.sh | bash
 ```
 
+> [!TIP]
+> **Windows Users:** Run this command inside **Git Bash** (installed automatically with Git for Windows) or **WSL** (Windows Subsystem for Linux). Standard Windows CMD and PowerShell do not support Bash scripts natively.
+
 ---
 
 ## 📸 Visual Step-by-Step Walkthrough
