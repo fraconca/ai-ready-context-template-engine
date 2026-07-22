@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "deny": [
+      "Read(.env)",
+      "Read(.env.*)",
+      "Read(*.pem)",
+      "Read(*.key)",
+      "Read(credentials.json)",
+      "Read(secrets/*)",
+
+      "Read(node_modules/*)",
+      "Read(vendor/*)",
+      "Read(.venv/*)",
+      "Read(venv/*)",
+      "Read(__pycache__/*)",
+
+      "Read(dist/*)",
+      "Read(build/*)",
+      "Read(out/*)",
+      "Read(*.o)",
+      "Read(*.exe)",
+      "Read(*.dll)",
+
+      "Read(package-lock.json)",
+      "Read(yarn.lock)",
+      "Read(pnpm-lock.yaml)",
+
+      "Read(*.log)",
+      "Read(*.sqlite)",
+      "Read(*.db)",
+      "Read(tmp/*)",
+      "Read(.cache/*)",
+      "Read(.DS_Store)",
+
+      "Read(docs/*)"
+    ],
+    "allow": [
+      "Read(docs/arquivos-de-contexto.md)"
+    ]
+  }
+}

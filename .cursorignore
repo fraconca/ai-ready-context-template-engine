@@ -1,0 +1,64 @@
+# ==========================================
+# 1. SEGURANÇA & SEGREDOS (Crucial)
+# Nunca deixe a IA ler chaves de API ou senhas
+# ==========================================
+
+.env
+.env.*
+*.pem
+*.key
+credentials.json
+secrets/
+
+# ==========================================
+# 2. ARQUIVOS PESADOS & DEPENDÊNCIAS
+# Pastas gigantes que poluem o contexto da IA
+# ==========================================
+
+node_modules/
+vendor/
+.venv/
+venv/
+__pycache__/
+
+# ==========================================
+# 3. BUILD, COMPILAÇÃO & ARQUIVOS GERADOS
+# ==========================================
+
+dist/
+build/
+out/
+*.o
+*.exe
+*.dll
+
+# ==========================================
+# 4. LOCKFILES PESADOS (Opcional)
+# Em projetos grandes, os lockfiles podem consumir milhares de tokens
+# ==========================================
+
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# ==========================================
+# 5. DADOS, LOGS E ARQUIVOS TEMPORÁRIOS
+# ==========================================
+
+*.log
+*.sqlite
+*.db
+tmp/
+.cache/
+.DS_Store
+
+
+# ==========================================
+# 6. IGNORAR POR EXCEÇÃO
+# ==========================================
+# Se quiser ignorar uma pasta inteira, mas abrir exceção para um arquivo específico, use o ponto de exclamação !
+# Exemplo: se deseja ignorar o diretorio docs/ com exceção ao arquivo arquivos-de-contexto.md
+# ==========================================
+
+docs/
+!docs/arquivos-de-contexto.md
